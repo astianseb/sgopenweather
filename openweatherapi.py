@@ -17,7 +17,7 @@ class Weather:
 
     def is_response_valid(self, response):
         try:
-            ElementTree.fromstring(response)
+            self.tree = ElementTree.fromstring(response)
             return True
         except ParseError:
             return False
@@ -26,46 +26,38 @@ class Weather:
         return ElementTree.fromstring(self.response)
 
     def get_location(self):
-        self.tree = self.make_tree()
         for loc in self.tree.iter('city'):
             return loc.get('name')
 
     def get_temperature(self):
-        self.tree = self.make_tree()
         for temp in self.tree.iter('temperature'):
             return temp.get('value')
 
     def get_temperature_min(self):
-        self.tree = self.make_tree()
         for temp in self.tree.iter('temperature'):
             return temp.get('min')
 
     def get_temperature_min(self):
-        self.tree = self.make_tree()
         for temp in self.tree.iter('temperature'):
             return temp.get('min')
 
     def get_temperature_max(self):
-        self.tree = self.make_tree()
         for temp in self.tree.iter('temperature'):
             return temp.get('max')
 
     def get_humidity(self):
-        self.tree = self.make_tree()
         for hum in self.tree.iter('humidity'):
             humidity = hum.get('value')
             unit = hum.get('unit')
             return humidity + unit
 
     def get_pressure(self):
-        self.tree = self.make_tree()
         for pres in self.tree.iter('pressure'):
             pressure = pres.get('value')
             unit = pres.get('unit')
             return pressure + ' ' + unit
            
     def get_wind(self):
-        self.tree = self.make_tree()
         for pres in self.tree.iter('wind'):
             for i in pres.iter('speed'):
                 wind_v = i.get('value')
@@ -75,7 +67,6 @@ class Weather:
         return wind_v + ' ' + wind_n + ' ' + wind_d
     
     def get_clouds(self):
-        self.tree = self.make_tree()
         for clouds in self.tree.iter('clouds'):
             return clouds.get('name')
 
